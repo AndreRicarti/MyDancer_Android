@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,14 +23,20 @@ import br.com.mydancer.mydancer.R;
 import br.com.mydancer.mydancer.model.Event;
 import br.com.mydancer.mydancer.ui.activity.EventActivity;
 import br.com.mydancer.mydancer.ui.activity.MainActivity;
+import br.com.mydancer.mydancer.ui.recyclerview.adapter.listener.OnItemClickListener;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
     private final List<Event> events;
     private final Context context;
+    private OnItemClickListener onItemClickListener;
 
     public EventAdapter(List<Event> events, Context context) {
         this.events = events;
         this.context = context;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     @NonNull
@@ -52,26 +59,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     class EventViewHolder extends RecyclerView.ViewHolder {
-
         private final TextView data;
         private final TextView nomeEvento;
         private final ImageView imagemEvento;
-        public String nomeEventoFinal;
-        public View view;
+        private Event event;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
-            view = itemView;
             data = itemView.findViewById(R.id.item_event_data);
             nomeEvento = itemView.findViewById(R.id.item_event_descricao_evento);
             imagemEvento = itemView.findViewById(R.id.item_event_imagem);
 
-            view.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent=new Intent(context, MainActivity.class);
-                    intent.putExtra("nomeEvento", nomeEventoFinal);
-                    context.startActivity(intent);
+                    onItemClickListener.OnItemClick(event, getAdapterPosition());
                 }
             });
         }
@@ -83,7 +85,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         public void preencheCampo(Event event) {
             data.setText(formataData(event.getDateStart()));
             nomeEvento.setText(event.getTitle());
-            nomeEventoFinal = event.getTitle();
 
             int id = event.getId();
 

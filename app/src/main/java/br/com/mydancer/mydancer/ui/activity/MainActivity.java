@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import br.com.mydancer.mydancer.R;
+import br.com.mydancer.mydancer.model.Event;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         TextView textView = findViewById(R.id.textView);
-        textView.setText(intent.getSerializableExtra("nomeEvento").toString());
+        Event event = new Event();
+        event = (Event) intent.getSerializableExtra("nomeEvento");
+
+        textView.setText(event.getTitle());
+
     }
 }

@@ -3,15 +3,8 @@ package br.com.mydancer.mydancer.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 
 import java.util.List;
 
@@ -19,6 +12,7 @@ import br.com.mydancer.mydancer.R;
 import br.com.mydancer.mydancer.model.Event;
 import br.com.mydancer.mydancer.retrofit.RetrofitInicializador;
 import br.com.mydancer.mydancer.ui.recyclerview.adapter.EventAdapter;
+import br.com.mydancer.mydancer.ui.recyclerview.adapter.listener.OnItemClickListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,13 +43,21 @@ public class EventActivity extends AppCompatActivity {
 
     private void configuraRecyclerView(List<Event> events) {
         RecyclerView listEvents = findViewById(R.id.list_event_recyclerview);
-        configAdapter(events, listEvents);
+        configuraAdapter(events, listEvents);
 
     }
 
-    private void configAdapter(List<Event> events, RecyclerView listEvents) {
+    private void configuraAdapter(final List<Event> events, RecyclerView listEvents) {
         adapter = new EventAdapter(events, this);
         listEvents.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(Event event, int posicao) {
+                Intent intent = new Intent(EventActivity.this, MainActivity.class);
+                intent.putExtra("nomeEvento", events.get(posicao));
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
