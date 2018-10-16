@@ -20,7 +20,7 @@
         </activity>
 
         <activity android:name=".ui.activity.EventActivity" />
-        <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.ConfirmEventActivity" />
     </application>
 
 </manifest>

@@ -53,7 +53,7 @@ public class EventActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void OnItemClick(Event event, int posicao) {
-                Intent intent = new Intent(EventActivity.this, MainActivity.class);
+                Intent intent = new Intent(EventActivity.this, ConfirmEventActivity.class);
                 intent.putExtra("nomeEvento", events.get(posicao));
                 startActivity(intent);
             }

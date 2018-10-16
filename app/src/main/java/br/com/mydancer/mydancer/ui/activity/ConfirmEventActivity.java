@@ -8,20 +8,19 @@ import android.widget.TextView;
 import br.com.mydancer.mydancer.R;
 import br.com.mydancer.mydancer.model.Event;
 
-public class MainActivity extends AppCompatActivity {
+public class ConfirmEventActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_confirm_event);
 
         Intent intent = getIntent();
 
-        TextView textView = findViewById(R.id.textView);
+        TextView textView = findViewById(R.id.confirm_event_name_event);
         Event event = new Event();
         event = (Event) intent.getSerializableExtra("nomeEvento");
 
         textView.setText(event.getTitle());
-
     }
 }

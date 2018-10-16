@@ -1,19 +1,15 @@
 package br.com.mydancer.mydancer.ui.recyclerview.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,8 +17,6 @@ import java.util.Locale;
 
 import br.com.mydancer.mydancer.R;
 import br.com.mydancer.mydancer.model.Event;
-import br.com.mydancer.mydancer.ui.activity.EventActivity;
-import br.com.mydancer.mydancer.ui.activity.MainActivity;
 import br.com.mydancer.mydancer.ui.recyclerview.adapter.listener.OnItemClickListener;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
