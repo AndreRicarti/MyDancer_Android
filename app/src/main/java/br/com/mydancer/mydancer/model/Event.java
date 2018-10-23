@@ -11,6 +11,7 @@ public class Event implements Serializable {
     private int id;
     private int companyId;
     private String title;
+    private String Description;
     private Date dateStart;
     private Date dateEnd;
 
@@ -36,6 +37,14 @@ public class Event implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public Date getDateStart() {
