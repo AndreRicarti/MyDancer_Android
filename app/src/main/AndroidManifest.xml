@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".ui.activity.EventActivity" />
         <activity android:name=".ui.activity.ConfirmEventActivity" />
-        <activity android:name=".ui.activity.CallPersonalDancerActivity"></activity>
+        <activity android:name=".ui.activity.CallPersonalDancerActivity" />
+        <activity android:name=".ui.activity.LoginActivity"></activity>
     </application>
 
 </manifest>

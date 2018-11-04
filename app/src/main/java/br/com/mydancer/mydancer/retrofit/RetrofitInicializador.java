@@ -1,5 +1,7 @@
 package br.com.mydancer.mydancer.retrofit;
 
+import br.com.mydancer.mydancer.model.EventConfirmations;
+import br.com.mydancer.mydancer.services.EventConfirmationsService;
 import br.com.mydancer.mydancer.services.EventService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -25,5 +27,9 @@ public class RetrofitInicializador {
 
     public EventService getEventService() {
         return retrofit.create(EventService.class);
+    }
+
+    public EventConfirmationsService getEventConfirmationsService() {
+        return retrofit.create(EventConfirmationsService.class);
     }
 }

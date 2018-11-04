@@ -3,12 +3,19 @@ package br.com.mydancer.mydancer.ui.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import br.com.mydancer.mydancer.R;
 import br.com.mydancer.mydancer.model.Event;
+import br.com.mydancer.mydancer.model.EventConfirmations;
+import br.com.mydancer.mydancer.retrofit.RetrofitInicializador;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ConfirmEventActivity extends AppCompatActivity {
 
@@ -35,6 +42,8 @@ public class ConfirmEventActivity extends AppCompatActivity {
         callPersonalDancer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //insertEventConfirmations();
+
                 Intent intent = new Intent(ConfirmEventActivity.this, CallPersonalDancerActivity.class);
                 intent.putExtra("tituloEvento", event.getTitle());
                 startActivity(intent);
@@ -50,5 +59,25 @@ public class ConfirmEventActivity extends AppCompatActivity {
     private void initializeFields() {
         nameEvent = findViewById(R.id.confirm_event_name_event);
         descriptionEvent = findViewById(R.id.confirm_event_description_event);
+    }
+
+    private void insertEventConfirmations(EventConfirmations eventConfirmations)
+    {
+        Call call = new RetrofitInicializador().getEventConfirmationsService().insere(eventConfirmations);
+        call.enqueue(new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) {
+                Log.i("onResponse", "Requisição com sucesso");
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable t) {
+                Log.i("onFailure", "Requisição falhou");
+            }
+        });
+
+        Toast.makeText(this, "O evento foi confirmado!", Toast.LENGTH_SHORT).show();
+
+        finish();
     }
 }
