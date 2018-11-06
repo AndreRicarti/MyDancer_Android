@@ -65,7 +65,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login_et_email" />
 
     <Button
-        android:id="@+id/login_acessar"
+        android:id="@+id/login_bt_acessar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -90,5 +90,5 @@
         android:text="Esqueceu a senha?"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_acessar" />
+        app:layout_constraintTop_toBottomOf="@+id/login_bt_acessar" />
 </android.support.constraint.ConstraintLayout>

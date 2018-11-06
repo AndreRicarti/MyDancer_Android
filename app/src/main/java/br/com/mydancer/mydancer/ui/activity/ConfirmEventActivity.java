@@ -42,10 +42,7 @@ public class ConfirmEventActivity extends AppCompatActivity {
         callPersonalDancer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //insertEventConfirmations();
-
-                Intent intent = new Intent(ConfirmEventActivity.this, CallPersonalDancerActivity.class);
-                intent.putExtra("tituloEvento", event.getTitle());
+                Intent intent = new Intent(ConfirmEventActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
@@ -67,7 +64,9 @@ public class ConfirmEventActivity extends AppCompatActivity {
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Call call, Response response) {
-                Log.i("onResponse", "Requisição com sucesso");
+                Intent intent = new Intent(ConfirmEventActivity.this, CallPersonalDancerActivity.class);
+                intent.putExtra("tituloEvento", event.getTitle());
+                startActivity(intent);
             }
 
             @Override
