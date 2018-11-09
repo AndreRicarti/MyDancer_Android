@@ -3,6 +3,7 @@ package br.com.mydancer.mydancer.retrofit;
 import br.com.mydancer.mydancer.model.EventConfirmations;
 import br.com.mydancer.mydancer.services.EventConfirmationsService;
 import br.com.mydancer.mydancer.services.EventService;
+import br.com.mydancer.mydancer.services.FirebaseService;
 import br.com.mydancer.mydancer.services.LoginService;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -43,5 +44,9 @@ public class RetrofitInicializador {
 
     public LoginService getLoginService() {
         return retrofitUser.create(LoginService.class);
+    }
+
+    public FirebaseService getFirebaseService() {
+        return retrofitUser.create(FirebaseService.class);
     }
 }

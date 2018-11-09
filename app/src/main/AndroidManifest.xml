@@ -21,15 +21,15 @@
         <activity android:name=".ui.activity.EventActivity" />
         <activity android:name=".ui.activity.ConfirmEventActivity" />
         <activity android:name=".ui.activity.CallPersonalDancerActivity" />
-        <activity android:name=".ui.activity.LoginActivity"></activity>
-        <service
-            android:name=".MyDancerInstanceIDService">
+        <activity android:name=".ui.activity.LoginActivity" />
+
+        <service android:name=".firebase.MyDancerInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".ui.activity.PersonalDancerActivity"></activity>
     </application>
-
-
 
 </manifest>

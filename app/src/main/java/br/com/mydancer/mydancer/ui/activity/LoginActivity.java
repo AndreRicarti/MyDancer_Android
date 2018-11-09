@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -42,13 +43,22 @@ public class LoginActivity extends AppCompatActivity {
                 call.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        Intent intent = new Intent(LoginActivity.this, CallPersonalDancerActivity.class);
+                        User user = response.body();
+                        Intent intent;
+
+                        if (user.getUserTypeId() == 2) {
+                            intent = new Intent(LoginActivity.this, PersonalDancerActivity.class);
+                        } else {
+                            intent = new Intent(LoginActivity.this, CallPersonalDancerActivity.class);
+                        }
+
+                        intent.putExtra("userLogin", user);
                         startActivity(intent);
                     }
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
-
+                        Toast.makeText(LoginActivity.this, "O e-mail ou senha esta errado.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

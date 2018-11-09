@@ -17,22 +17,23 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
 
-        Button btnProfissional = findViewById(R.id.btnProfissional);
-        Button btnUsuario =  findViewById(R.id.btnUsuario);
+        Button btUser = findViewById(R.id.welcome_bt_personal_user);
+        Button btPersonalDancer =  findViewById(R.id.welcome_bt_personal_dancer);
 
-        final Intent intentVaiProFormulario = new Intent(WelcomeScreenActivity.this, EventActivity.class);
+        final Intent intentEvent = new Intent(WelcomeScreenActivity.this, EventActivity.class);
+        final Intent intentPersonalDancer = new Intent(WelcomeScreenActivity.this, LoginActivity.class);
 
-        btnProfissional.setOnClickListener(new View.OnClickListener() {
+        btUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WelcomeScreenActivity.this, "Você foi direcionado para tela de dançarin@", Toast.LENGTH_LONG).show();
+                startActivity(intentEvent);
             }
         });
 
-        btnUsuario.setOnClickListener(new View.OnClickListener() {
+        btPersonalDancer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intentVaiProFormulario);
+                startActivity(intentPersonalDancer);
             }
         });
     }
