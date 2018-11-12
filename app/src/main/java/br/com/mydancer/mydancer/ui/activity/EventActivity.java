@@ -1,5 +1,6 @@
 package br.com.mydancer.mydancer.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,17 +27,25 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
+        final ProgressDialog progress = new ProgressDialog(EventActivity.this);
+
+        progress.setTitle("Carregando");
+        progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+        progress.show();
+
         Call<List<Event>> call = new RetrofitInicializador().getEventService().lista();
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 List<Event> events = response.body();
                 configuraRecyclerView(events);
+                progress.dismiss();
             }
 
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
                 Log.e("onFailure chamado", t.getMessage());
+                progress.dismiss();
             }
         });
     }

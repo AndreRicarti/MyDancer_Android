@@ -1,18 +1,18 @@
 package br.com.mydancer.mydancer.ui.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import com.google.gson.Gson;
 
 import br.com.mydancer.mydancer.R;
-import br.com.mydancer.mydancer.model.Event;
+import br.com.mydancer.mydancer.model.ErrorResponse;
 import br.com.mydancer.mydancer.model.LoginBody;
 import br.com.mydancer.mydancer.model.User;
 import br.com.mydancer.mydancer.retrofit.RetrofitInicializador;
@@ -30,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        final ProgressDialog progress = new ProgressDialog(LoginActivity.this);
+
         initializeFields();
 
         btAcessar.setOnClickListener(new View.OnClickListener() {
@@ -39,21 +41,34 @@ public class LoginActivity extends AppCompatActivity {
                 loginBody.setEmail(etEmail.getText().toString());
                 loginBody.setSenha(etSenha.getText().toString());
 
+                progress.setTitle("Carregando");
+                progress.setMessage("Realizando o Login...");
+                progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+                progress.show();
+
                 Call<User> call = new RetrofitInicializador().getLoginService().login(loginBody);
                 call.enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        User user = response.body();
-                        Intent intent;
+                        if (response.code() == 200) {
+                            User user = response.body();
+                            Intent intent;
 
-                        if (user.getUserTypeId() == 2) {
-                            intent = new Intent(LoginActivity.this, PersonalDancerActivity.class);
-                        } else {
-                            intent = new Intent(LoginActivity.this, CallPersonalDancerActivity.class);
+                            if (user.getUserTypeId() == 2) {
+                                intent = new Intent(LoginActivity.this, PersonalDancerActivity.class);
+                            } else {
+                                intent = new Intent(LoginActivity.this, CallPersonalDancerActivity.class);
+                            }
+
+                            progress.dismiss();
+                            intent.putExtra("userLogin", user);
+                            startActivity(intent);
+                        } else if (response.code() == 422) {
+                            progress.dismiss();
+                            Gson gson = new Gson();
+                            ErrorResponse message = gson.fromJson(response.errorBody().charStream(), ErrorResponse.class);
+                            Toast.makeText(LoginActivity.this, message.getError().getMessage(), Toast.LENGTH_SHORT).show();
                         }
-
-                        intent.putExtra("userLogin", user);
-                        startActivity(intent);
                     }
 
                     @Override

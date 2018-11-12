@@ -1,6 +1,5 @@
 package br.com.mydancer.mydancer.retrofit;
 
-import br.com.mydancer.mydancer.model.EventConfirmations;
 import br.com.mydancer.mydancer.services.EventConfirmationsService;
 import br.com.mydancer.mydancer.services.EventService;
 import br.com.mydancer.mydancer.services.FirebaseService;
