@@ -20,7 +20,7 @@ public class WelcomeScreenActivity extends AppCompatActivity {
         Button btUser = findViewById(R.id.welcome_bt_personal_user);
         Button btPersonalDancer =  findViewById(R.id.welcome_bt_personal_dancer);
 
-        final Intent intentEvent = new Intent(WelcomeScreenActivity.this, EventActivity.class);
+        final Intent intentEvent = new Intent(WelcomeScreenActivity.this, EventTabActivity.class);
         final Intent intentPersonalDancer = new Intent(WelcomeScreenActivity.this, LoginActivity.class);
 
         btUser.setOnClickListener(new View.OnClickListener() {

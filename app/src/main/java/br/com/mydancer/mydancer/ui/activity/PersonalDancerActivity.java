@@ -31,7 +31,7 @@ public class PersonalDancerActivity extends AppCompatActivity {
         Toast.makeText(this, SharedPrefManager.getmInstance(this).getToken(), Toast.LENGTH_LONG).show();
 
         Intent getIntent = getIntent();
-        User user = (User) getIntent.getSerializableExtra("userLogin");
+        User user = (User) getIntent.getSerializableExtra("putUserLogin");
 
         FirebaseUserToken firebaseUserToken = new FirebaseUserToken();
         firebaseUserToken.setUserId(user.getId());

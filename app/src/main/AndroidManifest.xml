@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.activity.WelcomeScreenActivity">
+            <!--<activity android:name=".ui.activity.EventTabActivity"-->
+            <!--android:theme="@style/AppTheme.NoActionBar">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +31,16 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.activity.PersonalDancerActivity"></activity>
+        <service android:name=".firebase.MyDancerMessageReceived">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".ui.activity.PersonalDancerActivity" />
+        <activity
+            android:name=".ui.activity.EventTabActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

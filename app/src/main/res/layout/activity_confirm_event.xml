@@ -10,6 +10,7 @@
         android:id="@+id/confirm_event_imagem"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        android:background="@drawable/balada_padrao"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

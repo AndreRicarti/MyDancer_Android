@@ -28,7 +28,7 @@ public class CallPersonalDancerActivity extends AppCompatActivity {
         Intent getIntent = getIntent();
 
         TextView eventTitle = findViewById(R.id.call_personal_title);
-        eventTitle.setText((String) getIntent.getSerializableExtra("tituloEvento"));
+        //eventTitle.setText();
 
         Button btCall = findViewById(R.id.call_personal_call);
         btCall.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +42,6 @@ public class CallPersonalDancerActivity extends AppCompatActivity {
                         firebaseUserToken = response.body();
 
                         sendMessagePersonalDancer(firebaseUserToken);
-
                     }
 
                     @Override

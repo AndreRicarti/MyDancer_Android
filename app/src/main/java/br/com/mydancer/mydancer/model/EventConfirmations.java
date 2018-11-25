@@ -1,12 +1,13 @@
 package br.com.mydancer.mydancer.model;
 
-import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class EventConfirmations {
     private int Id;
     private int EventId;
     private int UserId;
-    private Date DateCreation;
+    private String DateCreation;
 
     public int getId() {
         return Id;
@@ -32,11 +33,11 @@ public class EventConfirmations {
         UserId = userId;
     }
 
-    public Date getDateCreation() {
+    public String getDateCreation() {
         return DateCreation;
     }
 
-    public void setDateCreation(Date dateCreation) {
+    public void setDateCreation(String dateCreation) {
         DateCreation = dateCreation;
     }
 }

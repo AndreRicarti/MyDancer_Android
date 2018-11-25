@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +14,8 @@ import com.google.gson.Gson;
 
 import br.com.mydancer.mydancer.R;
 import br.com.mydancer.mydancer.model.ErrorResponse;
+import br.com.mydancer.mydancer.model.Event;
+import br.com.mydancer.mydancer.model.EventConfirmations;
 import br.com.mydancer.mydancer.model.LoginBody;
 import br.com.mydancer.mydancer.model.User;
 import br.com.mydancer.mydancer.retrofit.RetrofitInicializador;
@@ -20,10 +23,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static br.com.mydancer.mydancer.util.DateUtil.currentDateFormat;
+
 public class LoginActivity extends AppCompatActivity {
     TextView etEmail;
     TextView etSenha;
     Button btAcessar;
+    Event event = new Event();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +64,31 @@ public class LoginActivity extends AppCompatActivity {
                                 intent = new Intent(LoginActivity.this, PersonalDancerActivity.class);
                             } else {
                                 intent = new Intent(LoginActivity.this, CallPersonalDancerActivity.class);
+
+                                Intent getIntent = getIntent();
+
+                                EventConfirmations eventConfirmations = new EventConfirmations();
+                                eventConfirmations.setEventId((Integer) getIntent.getSerializableExtra("putEventId"));
+                                eventConfirmations.setUserId(user.getId());
+                                eventConfirmations.setDateCreation(currentDateFormat());
+
+                                final Call<EventConfirmations> callEventConfirmations = new RetrofitInicializador().getEventConfirmationsService().insere(eventConfirmations);
+                                callEventConfirmations.enqueue(new Callback<EventConfirmations>() {
+                                    @Override
+                                    public void onResponse(Call<EventConfirmations> call, Response<EventConfirmations> response) {
+                                        Log.i("onResponse", "Requisição com sucesso " + response.body());
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<EventConfirmations> call, Throwable t) {
+                                        Log.e("onFailure chamado", t.getMessage());
+                                    }
+                                });
                             }
 
                             progress.dismiss();
-                            intent.putExtra("userLogin", user);
+//                            intent.putExtra("putUserLogin", user);
+//                            intent.putExtra("putEvent", event);
                             startActivity(intent);
                         } else if (response.code() == 422) {
                             progress.dismiss();

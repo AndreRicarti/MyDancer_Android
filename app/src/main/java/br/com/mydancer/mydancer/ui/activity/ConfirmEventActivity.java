@@ -43,6 +43,7 @@ public class ConfirmEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ConfirmEventActivity.this, LoginActivity.class);
+                intent.putExtra("putEventId", event.getId());
                 startActivity(intent);
             }
         });
@@ -56,27 +57,5 @@ public class ConfirmEventActivity extends AppCompatActivity {
     private void initializeFields() {
         nameEvent = findViewById(R.id.confirm_event_name_event);
         descriptionEvent = findViewById(R.id.confirm_event_description_event);
-    }
-
-    private void insertEventConfirmations(EventConfirmations eventConfirmations)
-    {
-        Call call = new RetrofitInicializador().getEventConfirmationsService().insere(eventConfirmations);
-        call.enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) {
-                Intent intent = new Intent(ConfirmEventActivity.this, CallPersonalDancerActivity.class);
-                intent.putExtra("tituloEvento", event.getTitle());
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Log.i("onFailure", "Requisição falhou");
-            }
-        });
-
-        Toast.makeText(this, "O evento foi confirmado!", Toast.LENGTH_SHORT).show();
-
-        finish();
     }
 }

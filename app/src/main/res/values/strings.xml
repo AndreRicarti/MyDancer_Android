@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MyDancer</string>
+    <string name="tab_text_1">Hoje</string>
+    <string name="tab_text_2">Amanhã</string>
+    <string name="tab_text_3">Este fim de semana</string>
 </resources>

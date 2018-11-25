@@ -7,5 +7,5 @@ import retrofit2.http.POST;
 
 public interface EventConfirmationsService {
     @POST("EventConfirmations")
-    Call<Void> insere(@Body EventConfirmations eventConfirmations);
+    Call<EventConfirmations> insere(@Body EventConfirmations eventConfirmations);
 }
