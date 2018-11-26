@@ -67,16 +67,25 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (user.getUserTypeId() == 2) {
                                 intent = new Intent(LoginActivity.this, PersonalDancerActivity.class);
-                                progress.dismiss();
-                                intent.putExtra("putLoginUser", user);
-                                startActivity(intent);
+                                Intent getIntent = getIntent();
+
+                                if (getIntent.getSerializableExtra("putEvent") != null) {
+                                    progress.dismiss();
+                                    Toast.makeText(LoginActivity.this, "Não pode fazer login conta de Personal Dancer", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    progress.dismiss();
+                                    intent.putExtra("putLoginUser", user);
+                                    startActivity(intent);
+                                }
                             } else {
                                 intent = new Intent(LoginActivity.this, CallPersonalDancerActivity.class);
                                 Intent getIntent = getIntent();
 
-                                if (getIntent.getSerializableExtra("putEventId") != null) {
+                                if (getIntent.getSerializableExtra("putEvent") != null) {
+                                    Event event = new Event();
+                                    event = (Event) getIntent.getSerializableExtra("putEvent");
                                     EventConfirmations eventConfirmations = new EventConfirmations();
-                                    eventConfirmations.setEventId((Integer) getIntent.getSerializableExtra("putEventId"));
+                                    eventConfirmations.setEventId(event.getId());
                                     eventConfirmations.setUserId(user.getId());
                                     eventConfirmations.setDateCreation(currentDateFormat());
 
@@ -95,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     progress.dismiss();
                                     intent.putExtra("putLoginUser", user);
+                                    intent.putExtra("putEvent", event);
                                     startActivity(intent);
                                 }else {
                                     progress.dismiss();

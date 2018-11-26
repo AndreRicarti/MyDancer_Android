@@ -43,7 +43,7 @@ public class ConfirmEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ConfirmEventActivity.this, LoginActivity.class);
-                intent.putExtra("putEventId", event.getId());
+                intent.putExtra("putEvent", event);
                 startActivity(intent);
             }
         });
