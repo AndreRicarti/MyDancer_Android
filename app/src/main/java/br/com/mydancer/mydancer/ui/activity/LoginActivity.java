@@ -1,8 +1,10 @@
 package br.com.mydancer.mydancer.ui.activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.service.autofill.FillEventHistory;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,7 @@ import br.com.mydancer.mydancer.model.EventConfirmations;
 import br.com.mydancer.mydancer.model.LoginBody;
 import br.com.mydancer.mydancer.model.User;
 import br.com.mydancer.mydancer.retrofit.RetrofitInicializador;
+import dmax.dialog.SpotsDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +39,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final ProgressDialog progress = new ProgressDialog(LoginActivity.this);
+        setTitle("Login");
+
+        final AlertDialog progress;
+        progress = new SpotsDialog(this, R.style.Custom);
 
         initializeFields();
 
@@ -48,8 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginBody.setSenha(etSenha.getText().toString());
 
                 progress.setTitle("Carregando");
-                progress.setMessage("Realizando o Login...");
-                progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+                progress.setCancelable(false);
                 progress.show();
 
                 Call<User> call = new RetrofitInicializador().getLoginService().login(loginBody);
@@ -62,34 +67,40 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (user.getUserTypeId() == 2) {
                                 intent = new Intent(LoginActivity.this, PersonalDancerActivity.class);
+                                progress.dismiss();
+                                intent.putExtra("putLoginUser", user);
+                                startActivity(intent);
                             } else {
                                 intent = new Intent(LoginActivity.this, CallPersonalDancerActivity.class);
-
                                 Intent getIntent = getIntent();
 
-                                EventConfirmations eventConfirmations = new EventConfirmations();
-                                eventConfirmations.setEventId((Integer) getIntent.getSerializableExtra("putEventId"));
-                                eventConfirmations.setUserId(user.getId());
-                                eventConfirmations.setDateCreation(currentDateFormat());
+                                if (getIntent.getSerializableExtra("putEventId") != null) {
+                                    EventConfirmations eventConfirmations = new EventConfirmations();
+                                    eventConfirmations.setEventId((Integer) getIntent.getSerializableExtra("putEventId"));
+                                    eventConfirmations.setUserId(user.getId());
+                                    eventConfirmations.setDateCreation(currentDateFormat());
 
-                                final Call<EventConfirmations> callEventConfirmations = new RetrofitInicializador().getEventConfirmationsService().insere(eventConfirmations);
-                                callEventConfirmations.enqueue(new Callback<EventConfirmations>() {
-                                    @Override
-                                    public void onResponse(Call<EventConfirmations> call, Response<EventConfirmations> response) {
-                                        Log.i("onResponse", "Requisição com sucesso " + response.body());
-                                    }
+                                    final Call<EventConfirmations> callEventConfirmations = new RetrofitInicializador().getEventConfirmationsService().insere(eventConfirmations);
+                                    callEventConfirmations.enqueue(new Callback<EventConfirmations>() {
+                                        @Override
+                                        public void onResponse(Call<EventConfirmations> call, Response<EventConfirmations> response) {
+                                            Log.i("onResponse", "Requisição com sucesso " + response.body());
+                                        }
 
-                                    @Override
-                                    public void onFailure(Call<EventConfirmations> call, Throwable t) {
-                                        Log.e("onFailure chamado", t.getMessage());
-                                    }
-                                });
+                                        @Override
+                                        public void onFailure(Call<EventConfirmations> call, Throwable t) {
+                                            Log.e("onFailure chamado", t.getMessage());
+                                        }
+                                    });
+
+                                    progress.dismiss();
+                                    intent.putExtra("putLoginUser", user);
+                                    startActivity(intent);
+                                }else {
+                                    progress.dismiss();
+                                    Toast.makeText(LoginActivity.this, "Usuário precisa ser um Personal Dancer", Toast.LENGTH_SHORT).show();
+                                }
                             }
-
-                            progress.dismiss();
-//                            intent.putExtra("putUserLogin", user);
-//                            intent.putExtra("putEvent", event);
-                            startActivity(intent);
                         } else if (response.code() == 422) {
                             progress.dismiss();
                             Gson gson = new Gson();

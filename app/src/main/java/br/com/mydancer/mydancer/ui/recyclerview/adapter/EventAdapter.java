@@ -82,15 +82,26 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
 
             int id = event.getId();
 
-            if (id == 1)
-            {
+            if (id == 7) {
+                imagemEvento.setBackgroundResource(R.drawable.balada07);
+            } else if (id == 8) {
+                imagemEvento.setBackgroundResource(R.drawable.balada08);
+            } else if (id == 9) {
+                imagemEvento.setBackgroundResource(R.drawable.balada09);
+            } else if (id == 10) {
+                imagemEvento.setBackgroundResource(R.drawable.balada10);
+            } else if (id == 11) {
+                imagemEvento.setBackgroundResource(R.drawable.balada11);
+            } else if (id == 12) {
+                imagemEvento.setBackgroundResource(R.drawable.balada12);
+            } else if (id == 13) {
                 imagemEvento.setBackgroundResource(R.drawable.balada);
-            } else if (id == 2) {
+            } else if (id == 14) {
                 imagemEvento.setBackgroundResource(R.drawable.balada2);
-            } else if (id == 3) {
-                imagemEvento.setBackgroundResource(R.drawable.balada3);
+            } else if (id == 15) {
+                imagemEvento.setBackgroundResource(R.drawable.balada15);
             } else {
-                imagemEvento.setBackgroundResource(R.drawable.balada);
+                imagemEvento.setBackgroundResource(R.drawable.balada16);
             }
         }
 

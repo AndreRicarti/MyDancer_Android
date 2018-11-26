@@ -36,11 +36,8 @@ import retrofit2.Response;
 public class EventTabActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private ViewPager mViewPager;
-
     private static AlertDialog progress;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +92,6 @@ public class EventTabActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View rootView = inflater.inflate(R.layout.fragment_event_tab, container, false);
-
-//            final ProgressDialog progress = new ProgressDialog(getActivity());
 
             Call<List<Event>> call = new RetrofitInicializador().getEventService().getDate(getArguments().getString(ARG_SECTION_DATE));
             call.enqueue(new Callback<List<Event>>() {

@@ -10,6 +10,7 @@ public class FirebaseUserToken implements Serializable {
     private int Id;
     private int UserId;
     private String Token;
+    private boolean Status;
     private String DateCreation;
 
     public int getId() {
@@ -34,6 +35,14 @@ public class FirebaseUserToken implements Serializable {
 
     public void setToken(String token) {
         Token = token;
+    }
+
+    public boolean isStatus() {
+        return Status;
+    }
+
+    public void setStatus(boolean status) {
+        Status = status;
     }
 
     public String getDateCreation() {
