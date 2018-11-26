@@ -1,8 +1,6 @@
 package br.com.mydancer.mydancer.ui.activity;
 
 import android.app.AlertDialog;
-import android.app.Person;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -15,10 +13,8 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import br.com.mydancer.mydancer.R;
 import br.com.mydancer.mydancer.event.CallAlertPersonalEvent;
@@ -31,11 +27,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PersonalDancerActivity extends AppCompatActivity {
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personal_dancer);
-
         setTitle("Personal Dancer");
 
         EventBus eventBus = EventBus.getDefault();
@@ -82,7 +80,8 @@ public class PersonalDancerActivity extends AppCompatActivity {
                         .setMessage(event.toString() + " está chamando para dançar.")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
+                                TextView tvEsperandoDancar = findViewById(R.id.personal_esperando_danca);
+                                tvEsperandoDancar.setText("Você esta daçando com " + event.toString());
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
